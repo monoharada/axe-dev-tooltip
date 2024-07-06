@@ -99,6 +99,7 @@ function toggleTooltip(tooltipEnabled, svg, results) {
       for (const node of violation.nodes) {
         const element = document.querySelector(node.target[0]);
         if (element) {
+          element.setAttribute("tabindex", "0"); // フォーカス可能にする
           if (!element.dataset.violationHelp) {
             element.dataset.violationHelp = JSON.stringify([]);
             element.dataset.violationDescription = JSON.stringify([]);
@@ -118,6 +119,8 @@ function toggleTooltip(tooltipEnabled, svg, results) {
 
           element.addEventListener("mouseover", showTooltip);
           element.addEventListener("mouseout", hideTooltip);
+          element.addEventListener("focus", showTooltip); // フォーカス時にツールチップを表示
+          element.addEventListener("blur", hideTooltip); // フォーカスが外れた時にツールチップを非表示
         }
       }
     }
@@ -129,12 +132,15 @@ function toggleTooltip(tooltipEnabled, svg, results) {
       for (const node of violation.nodes) {
         const element = document.querySelector(node.target[0]);
         if (element) {
+          element.removeAttribute("tabindex"); // フォーカス可能を解除
           element.removeAttribute("data-violation-help");
           element.removeAttribute("data-violation-description");
           element.removeAttribute("data-violation-failure-summary");
 
           element.removeEventListener("mouseover", showTooltip);
           element.removeEventListener("mouseout", hideTooltip);
+          element.removeEventListener("focus", showTooltip); // フォーカス時のイベントを解除
+          element.removeEventListener("blur", hideTooltip); // フォーカスが外れた時のイベントを解除
         }
       }
     }
@@ -149,14 +155,17 @@ function showTooltip(event) {
   event.stopPropagation();
   const element = event.currentTarget;
   const tooltip = document.createElement("div");
-  tooltip.style.position = "absolute";
-  tooltip.style.backgroundColor = "black";
-  tooltip.style.color = "white";
-  tooltip.style.padding = "5px";
-  tooltip.style.borderRadius = "5px";
-  tooltip.style.zIndex = "1000";
-  tooltip.style.width = "400px";
-  tooltip.style.wordWrap = "break-word";
+  Object.assign(tooltip.style, {
+    position: "absolute",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    backdropFilter: "blur(2px)",
+    color: "white",
+    padding: "1rem",
+    borderRadius: "5px",
+    zIndex: "1000",
+    width: "400px",
+    wordWrap: "break-word",
+  });
 
   const helpArray = JSON.parse(element.dataset.violationHelp);
   const descriptionArray = JSON.parse(element.dataset.violationDescription);

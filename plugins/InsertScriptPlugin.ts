@@ -23,6 +23,15 @@ export const InsertScriptPlugin = (locale: Locale = "en") => {
         outline: 2px dashed tomato;
         outline-offset: 4px;
         cursor: help;
+
+        &:where(:hover, :focus) {
+          outline: 4px solid red;
+          outline-offset: 6px;
+        }
+
+        &:is(html) {
+          outline-offset: -2px;
+        }
       }
       </style>
       </head>`);
