@@ -1,0 +1,8 @@
+pre-commit:
+  parallel: false
+  commands:
+    lint:
+      tags: frontend style
+      glob: '*.{js,jsx,ts,tsx,md,yaml,yml,json,css,scss,less,html,htm,astro}'
+      run: bun lint
+      stage_fixed: true

@@ -1,0 +1,31 @@
+{
+  "name": "vite-axe",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "bun ./lint-tools/linting.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@ls-lint/ls-lint": "^2.2.3",
+    "@markuplint/jsx-parser": "^4.7.5",
+    "@markuplint/react-spec": "^4.5.5",
+    "@types/bun": "^1.1.6",
+    "@types/node": "^20.14.10",
+    "cspell": "^8.10.4",
+    "lefthook": "^1.6.18",
+    "markuplint": "^4.9.2",
+    "stylelint": "^16.6.1",
+    "stylelint-config-idiomatic-order": "^10.0.0",
+    "stylelint-config-standard": "^36.0.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1"
+  },
+  "dependencies": {
+    "axe-core": "^4.9.1"
+  }
+}
