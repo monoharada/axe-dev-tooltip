@@ -1,5 +1,7 @@
 # Vite Axe Plugin
 
+![a11y error elements with tooltips on hover](./public/SCR-20240707-denf.png)
+
 This Vite plugin inserts the Axe accessibility testing script into your HTML files, configured for a specified locale.
 
 When the plugin detects an issue with `axe-core`, an accessibility check button will appear at the bottom right of the screen. Clicking the check button will highlight the affected elements with a dashed outline. Hovering over these elements will display a tooltip explaining the issue.
