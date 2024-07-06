@@ -1,11 +1,22 @@
 {
   "name": "vite-plugin-axe",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "type": "module",
+  "main": "dist/index.js",
+  "module": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "build": "tsc",
     "lint": "bun ./lint-tools/linting.ts"
   },
   "devDependencies": {
@@ -21,11 +32,9 @@
     "stylelint": "^16.6.1",
     "stylelint-config-idiomatic-order": "^10.0.0",
     "stylelint-config-standard": "^36.0.1",
-    "typescript": "^5.2.2",
-    "vite": "^5.3.1"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "axe-core": "^4.9.1",
-    "vite-plugin-axe": "^0.0.1"
+    "axe-core": "^4.9.1"
   }
 }
