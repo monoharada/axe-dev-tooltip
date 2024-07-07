@@ -26,7 +26,7 @@ Create a `vite.config.ts` file and configure the plugin:
 import { defineConfig } from "vite";
 import { InsertAxeScriptVite } from "axe-dev-tooltip";
 export default defineConfig({
-  plugins: [InsertAxeScriptVite('ja')], // Specify the locale here
+  plugins: [InsertAxeScriptVite({locale:'ja'})], // Specify the locale here
 });
 ```
 
@@ -50,7 +50,7 @@ class MyDocument extends Document {
             <div
               id="axe-script"
               strategy="afterInteractive"
-              dangerouslySetInnerHTML={{ html: InsertAxeScriptNextJs("ja") }}
+              dangerouslySetInnerHTML={{ html: InsertAxeScriptNextJs({locale:'ja'}) }}
             />
           )}
         </body>
