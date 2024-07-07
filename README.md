@@ -1,6 +1,6 @@
 # axe-dev-tooltip
 
-![a11y error elements with tooltips on hover](./public/SCR-20240707-denf.webp)
+![a11y error elements with tooltips on hover](https://github.com/monoharada/axe-dev-tooltip/raw/main/public/SCR-20240707-denf.webp)
 
 This plugin inserts the Axe accessibility testing script into your HTML files, configured for a specified locale. It supports both Vite and Next.js.
 
@@ -37,7 +37,7 @@ To configure the plugin for Next.js, modify your `_document.js` file as follows:
 ```javascript
 // _document.js
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { InsertAxeScriptNextJs } from "vite-plugin-axe";
+import { InsertAxeScriptNextJs } from "axe-dev-tooltip";
 class MyDocument extends Document {
   render() {
     return (

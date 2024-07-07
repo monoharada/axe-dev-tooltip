@@ -1,6 +1,6 @@
 {
   "name": "axe-dev-tooltip",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "dist/index.js",
   "module": "./dist/index.js",
@@ -36,5 +36,9 @@
   },
   "dependencies": {
     "axe-core": "^4.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/monoharada/axe-dev-tooltip.git"
   }
 }
