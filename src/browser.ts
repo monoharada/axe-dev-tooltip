@@ -44,7 +44,8 @@ function createAxeCheckButton(results) {
     position: 'fixed',
     bottom: '1rem',
     right: '1rem',
-    zIndex: '1000',
+    zIndex: '9000',
+    backdropFilter: 'blur(10px)',
     padding: '0',
     backgroundColor: 'transparent',
     border: 'none',
@@ -52,15 +53,44 @@ function createAxeCheckButton(results) {
     borderRadius: '50%',
     outline: 'none',
   });
-
   const svg = createSvgIcon();
   button.appendChild(svg);
   document.body.appendChild(button);
-
   let tooltipEnabled = false;
-  button.addEventListener('click', () => {
-    tooltipEnabled = !tooltipEnabled;
-    toggleTooltip(tooltipEnabled, svg, results);
+  let isDragging = false;
+  let offsetX: number;
+  let offsetY: number;
+  let startX: number;
+  let startY: number;
+
+  button.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - button.getBoundingClientRect().left;
+    offsetY = e.clientY - button.getBoundingClientRect().top;
+    startX = e.clientX;
+    startY = e.clientY;
+    button.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      button.style.left = `${e.clientX - offsetX}px`;
+      button.style.top = `${e.clientY - offsetY}px`;
+      button.style.bottom = 'auto';
+      button.style.right = 'auto';
+    }
+  });
+
+  document.addEventListener('mouseup', (e) => {
+    if (isDragging) {
+      const distance = Math.sqrt((e.clientX - startX) ** 2 + (e.clientY - startY) ** 2);
+      if (distance < 5) {
+        tooltipEnabled = !tooltipEnabled;
+        toggleTooltip(tooltipEnabled, svg, results);
+      }
+      isDragging = false;
+      button.style.cursor = 'pointer';
+    }
   });
 }
 
@@ -149,6 +179,7 @@ function toggleTooltip(tooltipEnabled, svg, results) {
 }
 
 function showTooltip(event) {
+  console.log('showTooltip');
   const a11yButton = event.target.closest('.axe-check-button');
   if (a11yButton) {
     return;
@@ -166,38 +197,48 @@ function showTooltip(event) {
     zIndex: '1000',
     width: '400px',
     wordWrap: 'break-word',
+    opacity: '0', // 初期状態は透明
+    transition: 'opacity 0.2s ease',
   });
-
   const helpArray = JSON.parse(element.dataset.violationHelp);
   const descriptionArray = JSON.parse(element.dataset.violationDescription);
   const failureSummaryArray = JSON.parse(element.dataset.violationFailureSummary);
-
   let tooltipText = '';
   for (let i = 0; i < helpArray.length; i++) {
     tooltipText += `Issue ${i + 1}:\nHelp: ${helpArray[i]}\nCheck: ${descriptionArray[i]}\nHow to fix it: ${failureSummaryArray[i]}\n\n`;
   }
   tooltip.innerText = tooltipText.trim();
-
   document.body.appendChild(tooltip);
-  element.addEventListener('mousemove', (event) => {
+
+  const setPosition = (event) => {
     const tooltipWidth = tooltip.offsetWidth;
     const tooltipHeight = tooltip.offsetHeight;
     const pageWidth = window.innerWidth;
     const pageHeight = window.innerHeight;
-
     let top = event.clientY + 10;
     let left = event.clientX + 10;
-
     if (top + tooltipHeight > pageHeight) {
       top = event.clientY - tooltipHeight - 10;
     }
     if (left + tooltipWidth > pageWidth) {
       left = event.clientX - tooltipWidth - 10;
     }
-
     tooltip.style.top = `${top}px`;
     tooltip.style.left = `${left}px`;
+  };
+
+  if (event.type === 'focus') {
+    const rect = element.getBoundingClientRect();
+    setPosition({ clientX: rect.left, clientY: rect.top });
+  } else {
+    element.addEventListener('mousemove', setPosition);
+  }
+
+  // ツールチップを表示するために少し遅延させてopacityを1にする
+  requestAnimationFrame(() => {
+    tooltip.style.opacity = '1';
   });
+
   element.addEventListener(
     'mouseout',
     () => {

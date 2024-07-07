@@ -1,8 +1,8 @@
-# Vite Axe Plugin
+# axe-dev-tooltip
 
-![a11y error elements with tooltips on hover](./public/SCR-20240707-denf.png)
+![a11y error elements with tooltips on hover](./public/SCR-20240707-denf.webp)
 
-This Vite plugin inserts the Axe accessibility testing script into your HTML files, configured for a specified locale.
+This plugin inserts the Axe accessibility testing script into your HTML files, configured for a specified locale. It supports both Vite and Next.js.
 
 When the plugin detects an issue with `axe-core`, an accessibility check button will appear at the bottom right of the screen. Clicking the check button will highlight the affected elements with a dashed outline. Hovering over these elements will display a tooltip explaining the issue.
 
@@ -11,10 +11,12 @@ When the plugin detects an issue with `axe-core`, an accessibility check button 
 First, install the necessary devDependencies:
 
 ```bash
-npm install axe-core vite-plugin-insert-axe --save-dev
+npm install axe-core axe-dev-tooltip --save-dev
 ```
 
 ## Configuration
+
+### vite
 
 Create a `vite.config.ts` file and configure the plugin:
 
@@ -26,6 +28,38 @@ import { InsertScriptPlugin } from "./plugins/InsertScriptPlugin";
 export default defineConfig({
   plugins: [InsertScriptPlugin('ja')], // Specify the locale here
 });
+```
+
+### Next.js
+
+To configure the plugin for Next.js, modify your `_document.js` file as follows:
+
+```javascript
+// _document.js
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import { InsertAxeScriptNextJs } from "vite-plugin-axe";
+class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+          {process.env.NODE_ENV === 'development' && (
+          <div
+          id="axe-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ html: InsertAxeScriptNextJs("ja") }}
+          />
+          )}
+        </body>
+      </Html>
+    );
+  }
+}
+export default MyDocument;
+
 ```
 
 ## Supported Locales
@@ -53,4 +87,3 @@ The following locales are supported:
 ## License
 
 MIT
-

@@ -38,7 +38,7 @@
   },
   "linter": {
     "enabled": true,
-    "ignore": ["**/*.css"],
+    "ignore": ["**/*.css", "**/.next/**", "./test-app/**"],
     "rules": {
       "recommended": true,
       "style": {
