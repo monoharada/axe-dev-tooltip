@@ -8,6 +8,9 @@
   "organizeImports": {
     "enabled": true
   },
+  "files": {
+    "ignore": ["**/.next/**"]
+  },
   "formatter": {
     "enabled": true,
     "include": ["src/**"],
@@ -38,7 +41,7 @@
   },
   "linter": {
     "enabled": true,
-    "ignore": ["**/*.css", "**/.next/**", "./test-app/**"],
+    "ignore": ["**/*.css", ".next/**", "test-app/**"],
     "rules": {
       "recommended": true,
       "style": {
