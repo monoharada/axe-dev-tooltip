@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import Script from "next/script";
-import { InsertAxeScriptNextJs } from "vite-plugin-axe";
+
+import { InsertAxeScriptNextJs } from "axe-dev-tooltip";
 
 class MyDocument extends Document {
   render() {
