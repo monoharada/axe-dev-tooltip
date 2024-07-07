@@ -208,7 +208,7 @@ function showTooltip(event) {
     element.tagName.toLowerCase() +
     (element.id ? `#${element.id}` : '') +
     (element.className ? `.${element.className.replace(/\s+/g, '.')}` : '');
-  tooltipText += `Selector: ${selector}\n\n\n`;
+  tooltipText += `Selector: ${selector}\n\n`;
   for (let i = 0; i < helpArray.length; i++) {
     tooltipText += `Issue ${i + 1}:\nHelp: ${helpArray[i]}\nCheck: ${descriptionArray[i]}\nHow to fix it: ${failureSummaryArray[i]}\n\n`;
   }

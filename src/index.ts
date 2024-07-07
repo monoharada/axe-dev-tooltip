@@ -64,7 +64,7 @@ export const InsertAxeScriptVite = (locale: Locale = 'en') => {
       return html.replace(
         '</head>',
         `
-        <script src="${axeMinJsPath} defer></script>
+        <script src="${axeMinJsPath}" defer></script>
         <script type="module">${axeScript}</script>
       <style>
       ${styles}
