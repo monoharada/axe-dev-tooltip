@@ -64,8 +64,8 @@ export const InsertAxeScriptVite = (locale: Locale = 'en') => {
       return html.replace(
         '</head>',
         `
-        <script module>${axeMinJsContent}</script>
-        <script module>${axeScript}</script>
+        <script src="${axeMinJsPath} defer></script>
+        <script type="module">${axeScript}</script>
       <style>
       ${styles}
       </style>
@@ -78,8 +78,8 @@ export const InsertAxeScriptVite = (locale: Locale = 'en') => {
 export const InsertAxeScriptNextJs = (locale: Locale = 'en') => {
   const axeScript = getAxeScript(locale);
   return `
-    <script module>${axeMinJsContent}</script>
-    <script module>${axeScript}</script>
+    <script type="module">${axeMinJsContent}</script>
+    <script type="module">${axeScript}</script>
     <style>
       ${styles}
       </style>
