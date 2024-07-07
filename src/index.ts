@@ -56,7 +56,8 @@ function getAxeScript(locale: Locale) {
     .replace('AXE_LOCALE', JSON.stringify(axeLocale));
 }
 
-export const InsertAxeScriptVite = (locale: Locale = 'en') => {
+export const InsertAxeScriptVite = (props: { locale: Locale }) => {
+  const { locale = 'en' } = props;
   const axeScript = getAxeScript(locale);
   return {
     name: 'insert-axe-script', // プラグイン名
@@ -75,7 +76,8 @@ export const InsertAxeScriptVite = (locale: Locale = 'en') => {
   };
 };
 
-export const InsertAxeScriptNextJs = (locale: Locale = 'en') => {
+export const InsertAxeScriptNextJs = (props: { locale: Locale }) => {
+  const { locale = 'en' } = props;
   const axeScript = getAxeScript(locale);
   return `
     <script type="module">${axeMinJsContent}</script>

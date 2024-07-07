@@ -108,7 +108,7 @@ function createSvgIcon() {
   Object.assign(svg.style, {
     width: '60px',
     height: '60px',
-    boxShadow: '0 0 5px rgba(0, 0, 0, 0.5)',
+    boxShadow: 'rgba(0, 0, 0, 0.25) 0px 16px 32px 0px',
     borderRadius: '50%',
     transition: 'stroke 0.3s ease',
   });
@@ -194,7 +194,7 @@ function showTooltip(event) {
     color: 'white',
     padding: '1rem',
     borderRadius: '5px',
-    zIndex: '1000',
+    zIndex: '9001',
     width: '400px',
     wordWrap: 'break-word',
     opacity: '0', // 初期状態は透明
