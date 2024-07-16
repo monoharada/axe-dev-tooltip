@@ -1,6 +1,6 @@
 {
   "name": "axe-dev-tooltip",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "type": "module",
   "main": "dist/index.js",
   "module": "./dist/index.js",

@@ -50,7 +50,7 @@ class MyDocument extends Document {
             <div
               id="axe-script"
               strategy="afterInteractive"
-              dangerouslySetInnerHTML={{ html: InsertAxeScriptNextJs({locale:'ja'}) }}
+              dangerouslySetInnerHTML={{ __html: InsertAxeScriptNextJs({locale:'ja'}) }}
             />
           )}
         </body>
