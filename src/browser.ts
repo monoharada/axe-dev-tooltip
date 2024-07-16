@@ -130,6 +130,10 @@ function toggleTooltip(tooltipEnabled, svg, results) {
       for (const node of violation.nodes) {
         const element = document.querySelector(node.target[0]);
         if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.width * rect.height === 0) {
+            element.dataset.isEmpty = 'true';
+          }
           element.setAttribute('tabindex', '0'); // フォーカス可能にする
           if (!element.dataset.violationHelp) {
             element.dataset.violationHelp = JSON.stringify([]);

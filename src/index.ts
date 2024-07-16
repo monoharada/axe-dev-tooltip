@@ -40,10 +40,9 @@ const styles = `[data-violation-help],[data-violation-description],[data-violati
   &:is(html) {
     outline-offset: -2px;
   }
-  &:empty {
-   min-width: 90%;
-   min-height: 20px;
-   background: salmon;
+  &[data-is-empty='true'] {
+   min-width: 46px;
+   min-height: 46px;
   }
 }`;
 
