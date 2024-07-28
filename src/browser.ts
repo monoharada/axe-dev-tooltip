@@ -55,6 +55,27 @@ function createAxeCheckButton(results) {
   });
   const svg = createSvgIcon();
   button.appendChild(svg);
+
+  // バッジを作成
+  const badge = document.createElement('output');
+  badge.classList.add('axe-badge');
+  Object.assign(badge.style, {
+    position: 'absolute',
+    top: '0',
+    right: '0',
+    backgroundColor: 'red',
+    color: 'white',
+    borderRadius: 'calc(infinity * 1px)',
+    padding: '0.3rem 0.5rem',
+    fontSize: '0.8rem',
+    transform: 'translate(50%, -50%)',
+    display: 'none', // 初期状態では非表示
+    transition: 'opacity 0.3s ease', // 追加
+    opacity: '0', // 初期状態では透明
+    linHeight: '1',
+  });
+  button.appendChild(badge);
+
   document.body.appendChild(button);
   let tooltipEnabled = false;
   let isDragging = false;
@@ -86,7 +107,7 @@ function createAxeCheckButton(results) {
       const distance = Math.sqrt((e.clientX - startX) ** 2 + (e.clientY - startY) ** 2);
       if (distance < 5) {
         tooltipEnabled = !tooltipEnabled;
-        toggleTooltip(tooltipEnabled, svg, results);
+        toggleTooltip(tooltipEnabled, svg, results, badge);
       }
       isDragging = false;
       button.style.cursor = 'pointer';
@@ -121,7 +142,7 @@ function createSvgIcon() {
   return svg;
 }
 
-function toggleTooltip(tooltipEnabled, svg, results) {
+function toggleTooltip(tooltipEnabled, svg, results, badge) {
   if (tooltipEnabled) {
     for (const path of svg.querySelectorAll('path')) {
       path.setAttribute('stroke', '#39FF14');
@@ -158,6 +179,12 @@ function toggleTooltip(tooltipEnabled, svg, results) {
           element.addEventListener('blur', hideTooltip); // フォーカスが外れた時にツールチップを非表示
         }
       }
+      // バッジを表示してエラー件数を設定
+      badge.style.display = 'block';
+      badge.value = results.violations.length;
+      requestAnimationFrame(() => {
+        badge.style.opacity = '1'; // ふわっと表示
+      });
     }
   } else {
     for (const path of svg.querySelectorAll('path')) {
@@ -179,6 +206,14 @@ function toggleTooltip(tooltipEnabled, svg, results) {
         }
       }
     }
+    badge.style.opacity = '0';
+    badge.addEventListener(
+      'transitionend',
+      () => {
+        badge.style.display = 'none';
+      },
+      { once: true },
+    );
   }
 }
 
